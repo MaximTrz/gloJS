@@ -11,13 +11,15 @@ let object = {
 	shopName : shopName,
 	shopGoods : [],
 	employers: {},
-	open: true,
+	open: false,
 	discount: false,
+	shopItems: [],
 	workTime: function (time){
 		if (time<0){
 			console.log('Такого не может быть');
 		} else if (time > 8 && time <20){
-				console.log('Время работать!')
+				console.log('Время работать!');
+				object.open = true;
 			} else if (time<24){
 				console.log('Уже слишком поздно!')
 			} else {
@@ -47,33 +49,43 @@ let object = {
 		}
 },
 
-getEmployers: function (){
-	let name;
-		for (i = 1; i <= 4; i++) {
-			name = prompt("Введите имя сотрудника");
-				if ((typeof(name)==='string') && (typeof(name)!=null) && (name!='')){
-					object.employers[i] = name;
-				} else {
-						i--;
-				}
-	}
-	console.log(object.employers);
-},
+	getEmployers: function (){
+		let name;
+			for (i = 1; i <= 4; i++) {
+				name = prompt("Введите имя сотрудника");
+					if ((typeof(name)==='string') && (typeof(name)!=null) && (name!='')){
+						object.employers[i] = name;
+					} else {
+							i--;
+					}
+		}
+		console.log(object.employers);
+	},
 
-setPrice: function (discount){
-	if (discount==true) {
-		price = price*0.8;
-	}	
-},
+	makeDiscount: function (discount){
+		if (discount==true) {
+			price = price*0.8;
+		}	
+	},
 
-dayBudget: function(){
-	alert('Бюджет на 1 день равен '+ money/30 + ' рублей');
-}  
+	dayBudget: function(){
+		alert('Бюджет на 1 день равен '+ money/30 + ' рублей');
+	},
+
+	chooseShopItems: function(){
+		let items = prompt("Перечислите через запятую ваши товары", "");
+		while ( (typeof(items) != "string") || (items=="") ) {
+			items = prompt("Перечислите через запятую ваши товары", "");
+		}
+		object.shopItems = items.split(",");
+		object.shopItems.push = prompt("Подождите, еще ", "");
+		object.shopItems.sort();
+	}  
 };
 
 
-object.chooseGoods();
-console.log(object.shopGoods);
+object.chooseShopItems();
+console.log(object.shopItems);
 
 // object.workTime(9);
 // object.dayBudget();
